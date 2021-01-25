@@ -17,7 +17,7 @@ const wss = new WebSocket.Server({ port: 2356 });
 
 const app = express()
 
-app.use(express.static('./client/build'))
+app.use(express.static('./Client/build'))
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
@@ -468,7 +468,7 @@ app.post('/upload', upload.single("Test"), function (req, res, next) {
 
 app.get('*', (req, res) =>
 {
-    res.sendFile(path.join(__dirname+'/client/build/index.html'))
+    res.sendFile(path.join(__dirname+'/Client/build/index.html'))
 })
 
 
