@@ -46,6 +46,7 @@ app.use('/authenticated', passport.authenticate('loginToken', { session: false }
 // and not requiring node-postgres directly
 const db = require('./db');
 
+/*
 var pg = require('pg');
 var con_string = 'tcp://postgres:admin@localhost/Tenttikanta';
 
@@ -76,7 +77,7 @@ wss.on('connection', function connection(ws) {
     })
     console.log("Someone connected")
 })
-
+*/
 
 //TODO
 
