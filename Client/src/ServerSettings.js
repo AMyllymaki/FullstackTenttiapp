@@ -1,6 +1,6 @@
 const ServerSettings =
 {
-    baseURL: "http://localhost:4000"
+    baseURL: ""
 }
 
 export default ServerSettings
