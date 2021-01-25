@@ -1,0 +1,22 @@
+Kirjautuessa pitäisi hakea tentit käyttäjälle (Ja logoffissa poistaa)
+Serverille pitäisi tehdä käyttäjäkohtaiset oikeudet
+Käyttäjän tarkistus autentikoidessa
+
+Pitäis olla joku paikka mistä checkata onko käyttäjällä oikeus johonkin tenttiin
+Ja ylipäätään onko oikeus nähä myöskään kysymyksiä, vastausvaihtoehtoja tai aiheita
+
+Order by sql lauseisiin nii ei pompi kysymyskset.
+
+Poista serialize user ja deserialize user
+Katso miksi käyttäjän kysymyksiä ei haeta
+
+Master Admin
+
+Käyttäjien poisto ja adminien lisäys
+
+Admin:
+
+Tenttejä pitäisi pystyä lisäämään käyttäjille
+Kysymyksiä pitisi pystyä lisäämään tentteihin (näkymä jossa on kaikki kysmykset)
+
+

@@ -1,0 +1,223 @@
+{
+  "tentit": [
+    {
+      "id": 0,
+      "nimi": "Kemia Alkeet",
+      "kysymykset": [
+        {
+          "id": 1,
+          "kuvaus": "Montako atomia on vesimolekyylissä?",
+          "vastausVaihtoehdot": [
+            "2",
+            "3",
+            "17",
+            "1801528"
+          ],
+          "oikeatVastaukset": [
+            false,
+            true,
+            false,
+            false
+          ]
+        },
+        {
+          "id": 2,
+          "kuvaus": "Mikä olomuodon muutos härmistyminen on?",
+          "vastausVaihtoehdot": [
+            "Kiinteästä nesteeksi",
+            "Nesteestä kaasuksi",
+            "Kaasusta suoraan kiinteäksi",
+            "Kiinteästä suoraan kaasuksi"
+          ],
+          "oikeatVastaukset": [
+            false,
+            false,
+            true,
+            false
+          ]
+        },
+        {
+          "id": 3,
+          "kuvaus": "Minkä kahden alkuaineen seosta kutsutaan pronssiksi?",
+          "vastausVaihtoehdot": [
+            "Kupari",
+            "Rauta",
+            "Sinkki",
+            "Tina"
+          ],
+          "oikeatVastaukset": [
+            true,
+            false,
+            false,
+            true
+          ]
+        },
+        {
+          "id": 4,
+          "kuvaus": "Onko kuu tehty juustosta?",
+          "vastausVaihtoehdot": [
+            "Kyllä",
+            "Ei",
+            "Riippuu kuusta"
+          ],
+          "oikeatVastaukset": [
+            false,
+            false,
+            true
+          ]
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "nimi": "Matikka perusteet",
+      "kysymykset": [
+        {
+          "id": 1,
+          "kuvaus": "Paljonko on 9+10?",
+          "vastausVaihtoehdot": [
+            "21",
+            "19",
+            "20",
+            "15"
+          ],
+          "oikeatVastaukset": [
+            false,
+            true,
+            false,
+            false
+          ]
+        },
+        {
+          "id": 2,
+          "kuvaus": "Paljonko on 5*10?",
+          "vastausVaihtoehdot": [
+            "50",
+            "100/2",
+            "20+20",
+            "0"
+          ],
+          "oikeatVastaukset": [
+            true,
+            true,
+            false,
+            false
+          ]
+        },
+        {
+          "id": 3,
+          "kuvaus": "Mitkä näistä ovat alkulukuja?",
+          "vastausVaihtoehdot": [
+            "1",
+            "3",
+            "10",
+            "14"
+          ],
+          "oikeatVastaukset": [
+            false,
+            true,
+            false,
+            false
+          ]
+        },
+        {
+          "id": 4,
+          "kuvaus": "Paljonko on 2+2*4?",
+          "vastausVaihtoehdot": [
+            "10",
+            "16",
+            "8",
+            "4"
+          ],
+          "oikeatVastaukset": [
+            true,
+            false,
+            false,
+            false
+          ]
+        }
+      ]
+    }
+  ],
+  "vastaukset": [
+    {
+      "tenttiID": 0,
+      "kysymysID": 1,
+      "vastaukset": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "tenttiID": 0,
+      "kysymysID": 2,
+      "vastaukset": [
+        true,
+        true,
+        false,
+        false
+      ]
+    },
+    {
+      "tenttiID": 0,
+      "kysymysID": 3,
+      "vastaukset": [
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "tenttiID": 0,
+      "kysymysID": 4,
+      "vastaukset": [
+        true,
+        true,
+        false
+      ]
+    },
+    {
+      "tenttiID": 1,
+      "kysymysID": 1,
+      "vastaukset": [
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "tenttiID": 1,
+      "kysymysID": 2,
+      "vastaukset": [
+        true,
+        true,
+        true,
+        false
+      ]
+    },
+    {
+      "tenttiID": 1,
+      "kysymysID": 3,
+      "vastaukset": [
+        true,
+        true,
+        false,
+        false
+      ]
+    },
+    {
+      "tenttiID": 1,
+      "kysymysID": 4,
+      "vastaukset": [
+        true,
+        true,
+        false,
+        false
+      ]
+    }
+  ]
+}

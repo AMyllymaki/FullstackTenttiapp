@@ -1,0 +1,21 @@
+{
+    "app.vaihda-kieli-button": "Vaihda Kieli",
+    "app.tentit-button": "Tentit",
+    "app.tarkista-state-button": "Tarkista State",
+    "app.vaihda-normikäyttäjäksi-buttonn": "Vaihda Normikäyttäjäksi",
+    "app.vaihda-adminiksi-button": "Vaihda Adminiksi",
+    "app.kirjaudu-ulos-button": "Kirjaudu Ulos",
+    "app.kirjautuminen-title": "Kirjautuminen",
+    "app.tilinluonti-title": "Tilin luonti",
+    "app.uusi-tili-button": "Uusi Tili",
+    "app.kirjaudu-button": "Kirjaudu",
+    "app.luo-tili-button": "Luo Tili",
+    "app.takaisin-kirjautumiseen-button": "Takaisin Kirjautumiseen",
+    "app.käyttäjätunnus-placeholder": "Käyttäjätunnus",
+    "app.salasana-placeholder": "Salasana",
+    "app.salasana-uudelleen-placeholder": "Salasana Uudestaan",
+
+    "app.näytä-vastaukset-button": "Näytä Vastaukset",
+    "app.piilota-vastaukset-button": "Piilota Vastaukset",
+    "app.näytä-graafi-button": "Näytä Graafi"
+}
