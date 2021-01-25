@@ -36,7 +36,7 @@ const upload = multer({ storage: storage });
 
 
 app.use(cors())
-const port = 4000
+const port = process.env.PORT || 4000;
 
 app.use('/', routes);
 app.use('/authenticated', passport.authenticate('loginToken', { session: false }), secureRoutes);
@@ -469,6 +469,7 @@ app.get('*', (req, res) =>
 {
     res.sendFile(path.join(__dirname+'/client/build/index.html'))
 })
+
 
 
 app.listen(port, () => {
