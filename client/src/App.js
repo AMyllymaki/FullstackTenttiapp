@@ -142,7 +142,7 @@ function App(props) {
       console.log("Got Message")
       console.log(evt.data)
       TriggerToast(evt.data)
-  
+
     }
 
     ws.current.onclose = () => {
@@ -287,21 +287,26 @@ function App(props) {
             </div>
             {isLoggedIn() ?
               <div style={{ height: '100%', width: '100%', display: 'flex' }}>
+                {
+                  // <Button onClick={tentit} style={{ color: 'white' }}>
+                  //   <FormattedMessage {...messages.btnTentti} /> 
+                  // </Button>
 
-                <Button onClick={tentit} style={{ color: 'white' }}>
-                  <FormattedMessage {...messages.btnTentti} />
-                </Button>
-                <Button onClick={TarkistaState} style={{ color: 'white' }}>
-                  <FormattedMessage {...messages.btnTarkistaState} />
-                </Button>
-                <Button name={"VaihdaKäyttäjääButton"} onClick={vaihdaKäyttäjää} style={{ color: 'white' }}>
+                  //   <Button onClick={TarkistaState} style={{ color: 'white' }}>
+                  //   <FormattedMessage {...messages.btnTarkistaState} />
+                  // </Button>
+                }
 
-                  {state.admin ?
-                    <FormattedMessage {...messages.btnVaihdaNormikäyttäjäksi} />
-                    :
-                    <FormattedMessage {...messages.btnVaihdaAdminiksi} />
-                  }
-                </Button>
+                {state.käyttäjäRooli === "admin" &&
+                  <Button name={"VaihdaKäyttäjääButton"} onClick={vaihdaKäyttäjää} style={{ color: 'white' }}>
+
+                    {state.admin ?
+                      <FormattedMessage {...messages.btnVaihdaNormikäyttäjäksi} />
+                      :
+                      <FormattedMessage {...messages.btnVaihdaAdminiksi} />
+                    }
+                  </Button>
+                }
                 <Button name={"LogoutButton"} onClick={Logout} style={{ color: 'white' }}>
                   <FormattedMessage {...messages.btnKirjauduUlos} />
                 </Button>
