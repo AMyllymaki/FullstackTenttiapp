@@ -464,12 +464,13 @@ app.post('/upload', upload.single("Test"), function (req, res, next) {
 
 
 if (process.env.HEROKU) {
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname + '/client/build/index.html'))
-    })
 
     app.get('/admin', (req, res) => {
         res.sendFile(path.join(__dirname + '/admin/build/index.html'))
+    })
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname + '/client/build/index.html'))
     })
 }
 
