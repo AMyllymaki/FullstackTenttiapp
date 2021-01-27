@@ -7,6 +7,80 @@ const bcrypt = require('bcrypt')
 const router = express.Router();
 const BCRYPT_SALT_ROUNDS = 12;
 
+let herokuSecret
+
+if (process.env.HEROKU)
+{
+    herokuSecret = process.env.SECRET
+}
+else
+{
+    herokuSecret = 'secret'
+}
+
+const CheckIfSuperAdmin = (req, res, next) => {
+    
+    let secret = req.headers.authorization
+
+    if (secret === herokuSecret) {
+       
+        next()
+        return
+    }
+
+    res.status(401).send("Unauthorized")
+}
+
+{//Käyttäjä queryt
+    router.delete('/kayttaja/:id', CheckIfSuperAdmin, (req, res) => {
+        db.query('DELETE FROM käyttäjä WHERE id = $1', [req.params.id], (err, result) => {
+
+            if (err) {
+                console.log(err)
+            }
+            res.send(result)
+        })
+    })
+
+    /*
+    router.get('/kayttaja/:id', CheckIfSuperAdmin, (req, res) => {
+        db.query('SELECT * FROM käyttäjä WHERE id = $1', [req.params.id], (err, result) => {
+
+            if (err) {
+                console.log(err)
+            }
+            res.send(result.rows[0])
+        })
+    })
+    */
+
+    router.get('/kayttaja/', CheckIfSuperAdmin, (req, res) => {
+        db.query('SELECT id, etunimi, sukunimi, rooli, käyttäjätunnus FROM käyttäjä', (err, result) => {
+
+
+
+            if (err) {
+                console.log(err)
+            }
+            res.send(result.rows)
+        })
+    })
+
+    router.put('/kayttaja/:id', CheckIfSuperAdmin, (req, res) => {
+    
+        let rooli = req.body.rooli
+
+        db.query('UPDATE käyttäjä SET rooli=$1 WHERE id=$2', [rooli, req.params.id], (err, result) => {
+
+            if (err) {
+                console.log(err)
+            }
+            res.send(result.rows)
+        })
+
+    })
+
+}
 
 router.post('/rekisteroi', (req, res) => {
     let käyttäjätunnus = req.body.käyttäjätunnus
@@ -56,7 +130,7 @@ router.post('/rekisteroi', (req, res) => {
 router.post('/login',
 
     async (req, res, next) => {
-
+      
         passport.authenticate(
             'login',
             async (err, userFromDB, info) => {
@@ -90,6 +164,8 @@ router.post('/login',
             }
         )(req, res, next);
     }
+
+    
 )
 
 module.exports = router;

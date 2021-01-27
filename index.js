@@ -17,7 +17,9 @@ const wss = new WebSocket.Server({ port: 2356 });
 
 const app = express()
 
-app.use(express.static('./client/build'))
+if (process.env.HEROKU) {
+    app.use(express.static('./client/build'))
+}
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
@@ -45,8 +47,13 @@ app.use('/authenticated', passport.authenticate('loginToken', { session: false }
 // notice here I'm requiring my database adapter file
 // and not requiring node-postgres directly
 const db = require('./db');
+const { env } = require('process');
 
-/*
+process.argv.forEach(function (val, index, array) {
+    console.log(index + ': ' + val);
+});
+
+
 var pg = require('pg');
 var con_string = 'tcp://postgres:admin@localhost/Tenttikanta';
 
@@ -67,9 +74,8 @@ wss.on('connection', function connection(ws) {
 
     pg_client.on('notification', function (nimi) {
 
-        if(pg_client === ws)
-        {
-           
+        if (pg_client === ws) {
+
         }
 
         ws.send(nimi.payload);
@@ -77,7 +83,7 @@ wss.on('connection', function connection(ws) {
     })
     console.log("Someone connected")
 })
-*/
+
 
 //TODO
 
@@ -142,10 +148,6 @@ wss.on('connection', function connection(ws) {
         })
     })
 }
-
-
-
-
 
 {//Aihe queryt
     app.delete('/aihe/:id', (req, res) => {
@@ -378,7 +380,6 @@ wss.on('connection', function connection(ws) {
     })
 }
 
-
 {//Kysymys queryt
     app.delete('/kysymys/:id', (req, res) => {
         db.query('DELETE FROM kysymys WHERE id = $1', [req.params.id], (err, result) => {
@@ -447,10 +448,7 @@ wss.on('connection', function connection(ws) {
 }
 
 
-
 app.post('/upload', upload.single("Test"), function (req, res, next) {
-
-
 
     const file = req.file
 
@@ -461,17 +459,19 @@ app.post('/upload', upload.single("Test"), function (req, res, next) {
     }
     res.send(file)
 
-
 })
 
 
 
-app.get('*', (req, res) =>
-{
-    res.sendFile(path.join(__dirname+'/client/build/index.html'))
-})
+if (process.env.HEROKU) {
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname + '/client/build/index.html'))
+    })
 
-
+    app.get('/admin', (req, res) => {
+        res.sendFile(path.join(__dirname + '/admin/build/index.html'))
+    })
+}
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

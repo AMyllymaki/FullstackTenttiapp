@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import  AppIntlWrapper  from './AppIntlWrapper.js';
 import './index.css';
+import App from './App';
 
 ReactDOM.render(
-
   <React.StrictMode>
-    <AppIntlWrapper />
+
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
+

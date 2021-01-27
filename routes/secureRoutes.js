@@ -2,25 +2,47 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
-const CheckIfAdmin = (req, res, next) =>
+let herokuSecret
+
+if (process.env.HEROKU)
 {
-    if(req.user)
-    {
-        if(req.user.rooli === "admin")
-        {
+    herokuSecret = process.env.SECRET
+}
+else
+{
+    herokuSecret = 'secret'
+}
+
+
+const CheckIfAdmin = (req, res, next) => {
+  
+    if (req.user) {
+        if (req.user.rooli === "admin") {
             next()
+            return
         }
     }
-    else
-    {
-        res.send(401, "Unauthorized");
+
+    res.status(401).send("Unauthorized")
+}
+
+const CheckIfSuperAdmin = (req, res, next) => {
+    
+    let secret = req.headers.authorization
+
+    if (secret === herokuSecret) {
+       
+        next()
+        return
     }
+
+    res.status(401).send("Unauthorized")
 }
 
 router.post('/loginToken', function (req, res) {
 
     let User
-  
+
 
     if (req.user) {
         let tmpUser = req.user
@@ -30,40 +52,8 @@ router.post('/loginToken', function (req, res) {
     res.json({ User });
 })
 
-{//Käyttäjä queryt
-    router.delete('/kayttaja/:id', CheckIfAdmin, (req, res) => {
-        db.query('DELETE FROM käyttäjä WHERE id = $1', [req.params.id], (err, result) => {
 
-            if (err) {
-                console.log(err)
-            }
-            res.send(result)
-        })
-    })
 
-    router.get('/kayttaja/:id', CheckIfAdmin, (req, res) => {
-        db.query('SELECT * FROM käyttäjä WHERE id = $1', [req.params.id], (err, result) => {
-
-            if (err) {
-                console.log(err)
-            }
-            res.send(result.rows[0])
-        })
-    })
-
-    router.get('/kayttaja/', CheckIfAdmin, (req, res) => {
-        db.query('SELECT * FROM käyttäjä', (err, result) => {
-
-          
-
-            if (err) {
-                console.log(err)
-            }
-            res.send(result.rows)
-        })
-    })
-
-}
 
 {//Tentti queryt
 
@@ -71,7 +61,7 @@ router.post('/loginToken', function (req, res) {
     router.get('/tentti/:id', (req, res) => {
         db.query('SELECT * FROM tentti WHERE id = $1', [req.params.id], (err, result) => {
 
-        
+
             if (err) {
                 console.log(err)
             }
@@ -91,7 +81,7 @@ router.post('/loginToken', function (req, res) {
         })
     })
 
-     //Poista tentti
+    //Poista tentti
     router.delete('/tentti/:id', CheckIfAdmin, (req, res) => {
         db.query('DELETE FROM tentti WHERE id = $1', [req.params.id], (err, result) => {
 
@@ -103,7 +93,7 @@ router.post('/loginToken', function (req, res) {
     })
 
     //Muokkaa tenttiä
-    router.put('/tentti/:id', CheckIfAdmin ,  (req, res) => {
+    router.put('/tentti/:id', CheckIfAdmin, (req, res) => {
 
         let nimi = req.body.nimi
         let minimipisteet = req.body.minimipisteet
@@ -122,7 +112,7 @@ router.post('/loginToken', function (req, res) {
     })
 
     //Julkaise tentti
-    router.put('/julkaise/tentti/:id', CheckIfAdmin,  (req, res) => {
+    router.put('/julkaise/tentti/:id', CheckIfAdmin, (req, res) => {
 
         let SQLRequest = "UPDATE tentti SET julkaisuajankohta=now() WHERE id = $1"
 
@@ -137,7 +127,7 @@ router.post('/loginToken', function (req, res) {
     })
 
     //Lue tentti
-    router.post('/tentti/', CheckIfAdmin,  (req, res) => {
+    router.post('/tentti/', CheckIfAdmin, (req, res) => {
 
         let nimi = req.body.nimi
         let minimipisteet = req.body.minimipisteet
@@ -158,7 +148,7 @@ router.post('/loginToken', function (req, res) {
 {//Tenttikysymykset
 
     //Poista kysymys tentistä
-    router.delete('/tenttikysymys/:idtentti/kysymys/:idkysymys',CheckIfAdmin, (req, res) => {
+    router.delete('/tenttikysymys/:idtentti/kysymys/:idkysymys', CheckIfAdmin, (req, res) => {
         db.query('DELETE FROM tenttikysymys WHERE tentti_id = $1 AND kysymys_id = $2', [req.params.idtentti, req.params.idkysymys], (err, result) => {
 
             if (err) {
@@ -180,9 +170,9 @@ router.post('/loginToken', function (req, res) {
     })
 
     //Lisää kysymys tenttiin
-    router.post('/tenttikysymys/',CheckIfAdmin, (req, res) => {
+    router.post('/tenttikysymys/', CheckIfAdmin, (req, res) => {
 
-      
+
 
         let tentti_id = req.body.tentti_id
         let kysymys_id = req.body.kysymys_id
@@ -191,7 +181,7 @@ router.post('/loginToken', function (req, res) {
 
         db.query(SQLRequest, [tentti_id, kysymys_id], (err, result) => {
 
-         
+
             if (err) {
                 console.log(err)
                 return
