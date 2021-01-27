@@ -17,9 +17,8 @@ const wss = new WebSocket.Server({ port: 2356 });
 
 const app = express()
 
-if (process.env.HEROKU) {
-    app.use(express.static('./client/build'))
-}
+app.use(express.static('./client/build'))
+app.use(express.static('./admin/build'))
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
@@ -463,16 +462,20 @@ app.post('/upload', upload.single("Test"), function (req, res, next) {
 
 
 
-if (process.env.HEROKU) {
+//if (process.env.HEROKU) {
 
     app.get('/admin', (req, res) => {
+
+        console.log("Loading From: " + __dirname + '/admin/build/index.html')
+
         res.sendFile(path.join(__dirname + '/admin/build/index.html'))
     })
 
     app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname + '/client/build/index.html'))
     })
-}
+//}
+
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
