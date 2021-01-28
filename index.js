@@ -10,6 +10,7 @@ const secureRoutes = require('./routes/secureRoutes.js')
 
 const passport = require('passport');
 const multer = require('multer');
+var secure = require('ssl-express-www');
 
 const WebSocket = require('ws');
 
@@ -23,7 +24,7 @@ app.use(express.static('./admin/build'))
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
-
+app.use(secure);
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
