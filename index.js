@@ -16,6 +16,7 @@ const WebSocket = require('ws');
 const wss = new WebSocket.Server({ port: 2356 });
 
 const app = express()
+var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS
 
 app.use(express.static('./client/build'))
 app.use(express.static('./admin/build'))
@@ -23,8 +24,6 @@ app.use(express.static('./admin/build'))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 
-var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS
-app.use(redirectToHTTPS([/localhost:(\d{4})/], [/\/insecure/], 301));
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -85,6 +84,8 @@ wss.on('connection', function connection(ws) {
     })
     console.log("Someone connected")
 })
+
+app.use(redirectToHTTPS([/localhost:(\d{4})/], [/\/insecure/], 301));
 
 
 //TODO
