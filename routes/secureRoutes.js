@@ -2,18 +2,6 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
-let herokuSecret
-
-if (process.env.HEROKU)
-{
-    herokuSecret = process.env.SECRET
-}
-else
-{
-    herokuSecret = 'secret'
-}
-
-
 const CheckIfAdmin = (req, res, next) => {
   
     if (req.user) {
@@ -21,19 +9,6 @@ const CheckIfAdmin = (req, res, next) => {
             next()
             return
         }
-    }
-
-    res.status(401).send("Unauthorized")
-}
-
-const CheckIfSuperAdmin = (req, res, next) => {
-    
-    let secret = req.headers.authorization
-
-    if (secret === herokuSecret) {
-       
-        next()
-        return
     }
 
     res.status(401).send("Unauthorized")

@@ -9,23 +9,34 @@ const routes = require('./routes/routes.js');
 const secureRoutes = require('./routes/secureRoutes.js')
 
 const passport = require('passport');
+
+//Tiedostojen siirto serverille
 const multer = require('multer');
-var secure = require('ssl-express-www');
 
+//Websocketit
 const WebSocket = require('ws');
-
 const wss = new WebSocket.Server({ port: 2356 });
 
+
 const app = express()
-var redirectToHTTPS = require('express-http-to-https').redirectToHTTPS
+
+const port = process.env.PORT || 4000;
+
+const db = require('./db');
 
 app.use(express.static('./client/build'))
 app.use(express.static('./admin/build'))
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
-app.use(secure);
 
+app.use(cors())
+
+app.use('/', routes);
+app.use('/authenticated', passport.authenticate('loginToken', { session: false }), secureRoutes);
+
+
+//Tämä ei toimi herokussa tällä hetkellä ((kuva)Tiedoston tallennus serverille)
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './upload');
@@ -35,30 +46,11 @@ var storage = multer.diskStorage({
     }
 });
 
-
 const upload = multer({ storage: storage });
 
-
-app.use(cors())
-const port = process.env.PORT || 4000;
-
-app.use('/', routes);
-app.use('/authenticated', passport.authenticate('loginToken', { session: false }), secureRoutes);
-
-
-// notice here I'm requiring my database adapter file
-// and not requiring node-postgres directly
-const db = require('./db');
-const { env } = require('process');
-
-process.argv.forEach(function (val, index, array) {
-    console.log(index + ': ' + val);
-});
-
-
+//Tämä osio ei toimi herokussa tällä hetkellä (Websocketit)
 var pg = require('pg');
 var con_string = 'tcp://postgres:admin@localhost/Tenttikanta';
-
 
 let pg_client = new pg.Client(con_string)
 pg_client.connect()
@@ -68,9 +60,6 @@ pg_client.query('LISTEN insertvastausvaihtoehto')
 pg_client.query('LISTEN deletetentti')
 pg_client.query('LISTEN deletekysymys')
 pg_client.query('LISTEN deletevastausvaihtoehto')
-
-
-
 
 wss.on('connection', function connection(ws) {
 
@@ -85,18 +74,6 @@ wss.on('connection', function connection(ws) {
     })
     console.log("Someone connected")
 })
-
-app.use(redirectToHTTPS([/localhost:(\d{4})/], [/\/insecure/], 301));
-
-if (process.env.NODE_ENV === 'production') {
-    app.use((req, res, next) => {
-        if (req.header('x-forwarded-proto') !== 'https')
-            res.redirect(`https://${req.header('host')}${req.url}`)
-        else
-            next()
-    })
-}
-
 
 
 //TODO
@@ -476,9 +453,6 @@ app.post('/upload', upload.single("Test"), function (req, res, next) {
 })
 
 
-
-//if (process.env.HEROKU) {
-
 app.get('/admin', (req, res) => {
 
     console.log("Loading From: " + __dirname + '/admin/build/index.html')
@@ -489,7 +463,6 @@ app.get('/admin', (req, res) => {
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname + '/client/build/index.html'))
 })
-//}
 
 
 app.listen(port, () => {

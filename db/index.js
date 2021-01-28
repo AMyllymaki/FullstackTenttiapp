@@ -6,8 +6,6 @@ if (process.env.HEROKU) {
   pool = new Pool({ connectionString: process.env.DATABASE_URL })
 }
 else {
-  
-  console.log("local pool")
 
   pool = new Pool({
 
