@@ -87,6 +87,16 @@ wss.on('connection', function connection(ws) {
 
 app.use(redirectToHTTPS([/localhost:(\d{4})/], [/\/insecure/], 301));
 
+if (process.env.NODE_ENV === 'production') {
+    app.use((req, res, next) => {
+        if (req.header('x-forwarded-proto') !== 'https')
+            res.redirect(`https://${req.header('host')}${req.url}`)
+        else
+            next()
+    })
+}
+
+
 
 //TODO
 
@@ -468,16 +478,16 @@ app.post('/upload', upload.single("Test"), function (req, res, next) {
 
 //if (process.env.HEROKU) {
 
-    app.get('/admin', (req, res) => {
+app.get('/admin', (req, res) => {
 
-        console.log("Loading From: " + __dirname + '/admin/build/index.html')
+    console.log("Loading From: " + __dirname + '/admin/build/index.html')
 
-        res.sendFile(path.join(__dirname + '/admin/build/index.html'))
-    })
+    res.sendFile(path.join(__dirname + '/admin/build/index.html'))
+})
 
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname + '/client/build/index.html'))
-    })
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '/client/build/index.html'))
+})
 //}
 
 
