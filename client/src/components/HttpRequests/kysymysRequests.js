@@ -23,10 +23,13 @@ export const haeKysymykset = async () => {
 //Palauttaa uuden komponenti ID:n
 export const lisääKysymys = async (kysymys) => {
 
+    const config = {
+        headers: { Authorization: `Bearer ${localStorage.getItem('jwtToken')}` }
+    };
 
     try {
 
-        const result = await axios.post(ServerSettings.baseURL + "/kysymys/", kysymys)
+        const result = await axios.post(ServerSettings.baseURL + "/authenticated" + "/kysymys/", kysymys, config)
 
         if (result.statusText === "OK") {
 
@@ -44,8 +47,13 @@ export const lisääKysymys = async (kysymys) => {
 
 
 export const poistaKysymys = async (id) => {
+
+    const config = {
+        headers: { Authorization: `Bearer ${localStorage.getItem('jwtToken')}` }
+    };
+
     try {
-        let result = await axios.delete(ServerSettings.baseURL + "/kysymys/" + id)
+        let result = await axios.delete(ServerSettings.baseURL + "/authenticated" + "/kysymys/" + id, config)
 
         if (result.statusText === "OK") {
 
@@ -62,8 +70,13 @@ export const poistaKysymys = async (id) => {
 }
 
 export const muokkaaKysymystä = async (id, kysymys) => {
+
+    const config = {
+        headers: { Authorization: `Bearer ${localStorage.getItem('jwtToken')}` }
+    };
+
     try {
-        let result = await axios.put(ServerSettings.baseURL + "/kysymys/" + id, kysymys)
+        let result = await axios.put(ServerSettings.baseURL + "/authenticated" + "/kysymys/" + id, kysymys, config)
 
         if (result.statusText === "OK") {
 

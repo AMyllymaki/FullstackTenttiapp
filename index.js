@@ -207,15 +207,7 @@ wss.on('connection', function connection(ws) {
 }
 
 {//Vastausvaihtoehto queryt
-    app.delete('/vastausvaihtoehto/:id', (req, res) => {
-        db.query('DELETE FROM vastausvaihtoehto WHERE id = $1', [req.params.id], (err, result) => {
-
-            if (err) {
-                console.log(err)
-            }
-            res.send(result)
-        })
-    })
+  
 
     app.get('/vastausvaihtoehto/:id', (req, res) => {
         db.query('SELECT * FROM vastausvaihtoehto WHERE id = $1', [req.params.id], (err, result) => {
@@ -249,53 +241,11 @@ wss.on('connection', function connection(ws) {
         })
     })
 
-    app.post('/vastausvaihtoehto/', (req, res) => {
-
-        let vaihtoehto = req.body.vaihtoehto
-        let oikea_vastaus = req.body.oikea_vastaus
-        let kysymys_id = req.body.kysymys_id
-
-        let SQLRequest = "INSERT INTO vastausvaihtoehto(vaihtoehto, oikea_vastaus, kysymys_id) VALUES ($1, $2, $3) RETURNING id"
-
-        db.query(SQLRequest, [vaihtoehto, oikea_vastaus, kysymys_id], (err, result) => {
-
-
-            if (err) {
-                console.log(err)
-                return
-            }
-            res.send(result.rows[0].id)
-        })
-    })
-
-    app.put('/vastausvaihtoehto/:id', (req, res) => {
-
-        let vaihtoehto = req.body.vaihtoehto
-        let oikea_vastaus = req.body.oikea_vastaus
-        let SQLRequest = "UPDATE vastausvaihtoehto SET vaihtoehto=$1, oikea_vastaus=$2  WHERE id=$3"
-
-        db.query(SQLRequest, [vaihtoehto, oikea_vastaus, req.params.id], (err, result) => {
-
-
-            if (err) {
-                console.log(err)
-                return
-            }
-            res.send(result.rows[0])
-        })
-    })
+ 
 }
 
 {//Vastaus queryt
-    app.delete('/vastaus/:id', (req, res) => {
-        db.query('DELETE FROM vastaus WHERE id = $1', [req.params.id], (err, result) => {
-
-            if (err) {
-                console.log(err)
-            }
-            res.send(result)
-        })
-    })
+  
 
     app.get('/vastaus/:id', (req, res) => {
         db.query('SELECT * FROM vastaus WHERE id = $1', [req.params.id], (err, result) => {
@@ -372,17 +322,7 @@ wss.on('connection', function connection(ws) {
 }
 
 {//Kysymys queryt
-    app.delete('/kysymys/:id', (req, res) => {
-        db.query('DELETE FROM kysymys WHERE id = $1', [req.params.id], (err, result) => {
-
-
-            if (err) {
-                console.log(err)
-            }
-            res.send(result)
-        })
-    })
-
+ 
     app.get('/kysymys/:id', (req, res) => {
         db.query('SELECT * FROM kysymys WHERE id = $1', [req.params.id], (err, result) => {
 
@@ -403,39 +343,7 @@ wss.on('connection', function connection(ws) {
         })
     })
 
-    app.post('/kysymys/', (req, res) => {
-
-        let kysymys = req.body.kysymys
-        let aihe_id = req.body.aihe_id
-        let SQLRequest = "INSERT INTO kysymys(kysymys, aihe_id) VALUES ($1, $2) RETURNING id"
-
-        db.query(SQLRequest, [kysymys, aihe_id], (err, result) => {
-
-
-            if (err) {
-                console.log(err)
-                return
-            }
-            res.send(result.rows[0].id)
-        })
-    })
-
-    app.put('/kysymys/:id', (req, res) => {
-
-        let kysymys = req.body.kysymys
-        let aihe_id = req.body.aihe_id
-        let SQLRequest = "UPDATE kysymys SET kysymys=$1, aihe_id=$2 WHERE id=$3"
-
-        db.query(SQLRequest, [kysymys, aihe_id, req.params.id], (err, result) => {
-
-
-            if (err) {
-                console.log(err)
-                return
-            }
-            res.send(result.rows[0])
-        })
-    })
+   
 }
 
 

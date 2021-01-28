@@ -181,6 +181,105 @@ router.post('/loginToken', function (req, res) {
     })
 }
 
+{//Vastausvaihtoehdot
+
+    router.delete('/vastausvaihtoehto/:id', (req, res) => {
+        db.query('DELETE FROM vastausvaihtoehto WHERE id = $1', [req.params.id], (err, result) => {
+
+            if (err) {
+                console.log(err)
+            }
+            res.send(result)
+        })
+    })
+
+    router.post('/vastausvaihtoehto/', (req, res) => {
+
+        let vaihtoehto = req.body.vaihtoehto
+        let oikea_vastaus = req.body.oikea_vastaus
+        let kysymys_id = req.body.kysymys_id
+
+        let SQLRequest = "INSERT INTO vastausvaihtoehto(vaihtoehto, oikea_vastaus, kysymys_id) VALUES ($1, $2, $3) RETURNING id"
+
+        db.query(SQLRequest, [vaihtoehto, oikea_vastaus, kysymys_id], (err, result) => {
+
+
+            if (err) {
+                console.log(err)
+                return
+            }
+            res.send(result.rows[0].id)
+        })
+    })
+
+    router.put('/vastausvaihtoehto/:id', (req, res) => {
+
+        let vaihtoehto = req.body.vaihtoehto
+        let oikea_vastaus = req.body.oikea_vastaus
+        let SQLRequest = "UPDATE vastausvaihtoehto SET vaihtoehto=$1, oikea_vastaus=$2  WHERE id=$3"
+
+        db.query(SQLRequest, [vaihtoehto, oikea_vastaus, req.params.id], (err, result) => {
+
+
+            if (err) {
+                console.log(err)
+                return
+            }
+            res.send(result.rows[0])
+        })
+    })
+
+
+}
+
+{//Kysymykset
+
+    router.delete('/kysymys/:id', (req, res) => {
+        db.query('DELETE FROM kysymys WHERE id = $1', [req.params.id], (err, result) => {
+
+
+            if (err) {
+                console.log(err)
+            }
+            res.send(result)
+        })
+    })
+
+    router.post('/kysymys/', (req, res) => {
+
+        let kysymys = req.body.kysymys
+        let aihe_id = req.body.aihe_id
+        let SQLRequest = "INSERT INTO kysymys(kysymys, aihe_id) VALUES ($1, $2) RETURNING id"
+
+        db.query(SQLRequest, [kysymys, aihe_id], (err, result) => {
+
+
+            if (err) {
+                console.log(err)
+                return
+            }
+            res.send(result.rows[0].id)
+        })
+    })
+
+    router.put('/kysymys/:id', (req, res) => {
+
+        let kysymys = req.body.kysymys
+        let aihe_id = req.body.aihe_id
+        let SQLRequest = "UPDATE kysymys SET kysymys=$1, aihe_id=$2 WHERE id=$3"
+
+        db.query(SQLRequest, [kysymys, aihe_id, req.params.id], (err, result) => {
+
+
+            if (err) {
+                console.log(err)
+                return
+            }
+            res.send(result.rows[0])
+        })
+    })
+
+}
 
 
 

@@ -45,9 +45,13 @@ export const haeVastausVaihtoehdotJaLiitäKysymykseen = async (kysymys) => {
 //Palauttaa uuden komponenti ID:n
 export const lisääVastausVaihtoehto = async (vastausvaihtoehto) => {
 
+    const config = {
+        headers: { Authorization: `Bearer ${localStorage.getItem('jwtToken')}` }
+    };
+
     try {
 
-        const result = await axios.post(ServerSettings.baseURL + "/vastausvaihtoehto/", vastausvaihtoehto)
+        const result = await axios.post(ServerSettings.baseURL +  "/authenticated" + "/vastausvaihtoehto/", vastausvaihtoehto, config)
 
         if (result.statusText === "OK") {
 
@@ -65,8 +69,13 @@ export const lisääVastausVaihtoehto = async (vastausvaihtoehto) => {
 
 
 export const poistaVastausVaihtoehto = async (id) => {
+
+    const config = {
+        headers: { Authorization: `Bearer ${localStorage.getItem('jwtToken')}` }
+    };
+
     try {
-        let result = await axios.delete(ServerSettings.baseURL + "/vastausvaihtoehto/" + id)
+        let result = await axios.delete(ServerSettings.baseURL + "/authenticated" +  "/vastausvaihtoehto/" + id, config)
 
         if (result.statusText === "OK") {
 
@@ -83,8 +92,13 @@ export const poistaVastausVaihtoehto = async (id) => {
 }
 
 export const muokkaaVastausVaihtoehtoa = async (id, vastausvaihtoehto) => {
+
+    const config = {
+        headers: { Authorization: `Bearer ${localStorage.getItem('jwtToken')}` }
+    };
+    
     try {
-        let result = await axios.put(ServerSettings.baseURL + "/vastausvaihtoehto/" + id, vastausvaihtoehto)
+        let result = await axios.put(ServerSettings.baseURL + "/authenticated" +  "/vastausvaihtoehto/" + id, vastausvaihtoehto, config)
 
         if (result.statusText === "OK") {
 

@@ -5,6 +5,9 @@ import axios from 'axios';
 export const loginUsername = async (credentials) => {
   
     try {
+
+        console.log(ServerSettings)
+
         let result = await axios.post(ServerSettings.baseURL + "/login/", credentials)
 
       
