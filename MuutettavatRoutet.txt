@@ -1,0 +1,26 @@
+Siirrettäviä routeja
+
+Admin Secure: (pitää varmistaa että käyttäjä on admin)
+
+//Uploadaa file
+//Hae kaikki kysymykset
+//Hae kysymys ID:llä
+//Hae kaikki vastaukset
+//Hae vastaus ID:llä
+//Hae kaikki vastausvaihtoehdot
+//Hae vastausvaihtoehto ID:llä
+
+
+User Secure (Pitää tarkistaa että käyttäjä koittaa muuttaa tai lukea omaa dataansa)
+
+//Muuta vastausta
+//Lisää vastaus
+//Hae yhden käyttäjän kaikki vastaukset yhteen tenttiin
+//Hae kysymyksen vastausvaihtoehdot
+
+Non Secure:
+
+
+Aiheen voi varmaan poistaa
+Kurssin voi varmaan myös poistaa
+ 

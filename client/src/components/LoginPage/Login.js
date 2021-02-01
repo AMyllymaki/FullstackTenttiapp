@@ -18,7 +18,6 @@ function Login() {
   
     const LoginWithUsername = async () => {
 
-      
         let credentials =
         {
             käyttäjätunnus: username,
@@ -76,8 +75,6 @@ function Login() {
             return
         }
 
-
-
         let credentials =
         {
             käyttäjätunnus: username,
@@ -121,8 +118,6 @@ function Login() {
         }
     }
 
-
-
     const changeLoginType = () => {
 
         dispatch({ type: "MuutaPassword", payload: "" })
@@ -146,18 +141,14 @@ function Login() {
                 <h1>  <FormattedMessage {...messages.titleKirjautuminen} /></h1>
 
                 <TextField
-
                     name="username_field"
-
                     style={{ height: 65 }}
                     text={username}
                     variant="outlined"
                     label={<FormattedMessage {...messages.PlaceholderKäyttäjätunnus} />}
                     onChange={(e) => setUsername(e.target.value)} />
 
-
                 <TextField
-
                     name="password_field"
                     style={{ height: 65 }}
                     text={password}
@@ -166,24 +157,19 @@ function Login() {
                     label={<FormattedMessage {...messages.PlaceholderSalasana} />}
                     onChange={(e) => setPassword(e.target.value)} />
 
-
             </div>
             :
             <div style={{ display: "flex", flexDirection: 'column', width: '50%' }}>
                 <h1> <FormattedMessage {...messages.titleTilinluonti} /></h1>
 
                 <TextField
-
                     style={{ height: 65 }}
                     label={<FormattedMessage {...messages.PlaceholderKäyttäjätunnus} />}
                     text={username}
                     variant="outlined"
                     onChange={(e) => setUsername(e.target.value)} />
 
-
-
                 <TextField
-
                     style={{ height: 65 }}
                     label={<FormattedMessage {...messages.PlaceholderSalasana} />}
                     text={password}
@@ -192,7 +178,6 @@ function Login() {
                     onChange={(e) => setPassword(e.target.value)} />
 
                 <TextField
-
                     style={{ height: 65 }}
                     label={<FormattedMessage {...messages.PlaceholderSalasanaUudestaan} />}
                     text={passwordAgain}
@@ -200,10 +185,7 @@ function Login() {
                     variant="outlined"
                     onChange={(e) => setPasswordAgain(e.target.value)} />
 
-
             </div>
-
-
         }
         <div style={{ display: "flex", flexDirection: "row", width: '50%', paddingTop: 30, justifyContent: 'flex-end' }}>
             <StoryButton style={{ marginRight: 5 }} color="primary" variant="contained" onClick={changeLoginType}>{isLogin ? <FormattedMessage {...messages.btnUusiTili} /> : <FormattedMessage {...messages.btnTakaisinKirjautumiseen} />}</StoryButton>
@@ -213,7 +195,6 @@ function Login() {
                 <StoryButton color="primary" variant="contained" onClick={RegisterUser}><FormattedMessage {...messages.btnLuoTili} /></StoryButton>
             }
         </div>
-
     </div >)
 
 

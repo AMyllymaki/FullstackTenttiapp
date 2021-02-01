@@ -80,15 +80,10 @@ wss.on('connection', function connection(ws) {
 
 //Käytettävien komponenttien muodostaminen serverillä useammalla haulla?
 
-//Liitostaulujen luonti:
-//(käyttäjän lisääminen kurssille, tentin lisääminen kurssille, tentin ja käyttäjän yhdistäminen, kysymysten lisääminen tenttiin)
-
 //Nodesta ei nyt lähde erroreita
 
 //Saman kysymyksen lisääminen tenttiin kaataa asioita (sama muissa liitostauluissa myöhemmin)
 
-
-//TÄN KOODIMÄÄRÄN VOI FIKSAA ROUTEILLA!
 
 {//Kurssi queryt
     app.delete('/kurssi/:id', (req, res) => {
@@ -208,7 +203,7 @@ wss.on('connection', function connection(ws) {
 
 {//Vastausvaihtoehto queryt
   
-
+    //Hae vastausvaihtoehto ID:llä
     app.get('/vastausvaihtoehto/:id', (req, res) => {
         db.query('SELECT * FROM vastausvaihtoehto WHERE id = $1', [req.params.id], (err, result) => {
 
@@ -219,6 +214,7 @@ wss.on('connection', function connection(ws) {
         })
     })
 
+    //Hae kaikki vastausvaihtoehdot
     app.get('/vastausvaihtoehto/', (req, res) => {
         db.query('SELECT * FROM vastausvaihtoehto ORDER BY id', (err, result) => {
 
@@ -230,6 +226,7 @@ wss.on('connection', function connection(ws) {
         })
     })
 
+    //Hae kysymyksen vastausvaihtoehdot
     app.get('/vastausvaihtoehto/kysymys/:id', (req, res) => {
         db.query('SELECT * FROM vastausvaihtoehto WHERE kysymys_id =$1 ORDER BY id', [req.params.id], (err, result) => {
 
@@ -246,7 +243,7 @@ wss.on('connection', function connection(ws) {
 
 {//Vastaus queryt
   
-
+    //Hae vastaus ID:llä
     app.get('/vastaus/:id', (req, res) => {
         db.query('SELECT * FROM vastaus WHERE id = $1', [req.params.id], (err, result) => {
 
@@ -257,6 +254,7 @@ wss.on('connection', function connection(ws) {
         })
     })
 
+    //Hae kaikki vastaukset
     app.get('/vastaus/', (req, res) => {
         db.query('SELECT * FROM vastaus', (err, result) => {
 
@@ -269,7 +267,6 @@ wss.on('connection', function connection(ws) {
     })
 
     //Hae yhden käyttäjän kaikki vastaukset yhteen tenttiin
-
     app.get('/vastaus/kayttaja/:kayttaja_id/tentti/:tentti_id', (req, res) => {
         let SQLRequest = 'SELECT * FROM vastaus WHERE käyttäjä_id=$1 AND vaihtoehto_id IN (SELECT id FROM vastausvaihtoehto WHERE kysymys_id IN(SELECT id FROM kysymys WHERE id IN (SELECT kysymys_id FROM tenttikysymys WHERE tentti_id = $2)))'
 
@@ -283,6 +280,7 @@ wss.on('connection', function connection(ws) {
         })
     })
 
+    //Lisää vastaus
     app.post('/vastaus/', (req, res) => {
 
         let tyyppi = req.body.tyyppi
@@ -304,6 +302,7 @@ wss.on('connection', function connection(ws) {
         })
     })
 
+    //Muuta vastausta
     app.put('/vastaus/:id', (req, res) => {
 
         let tyyppi = req.body.tyyppi
@@ -323,6 +322,7 @@ wss.on('connection', function connection(ws) {
 
 {//Kysymys queryt
  
+    //Hae kysymys ID:llä
     app.get('/kysymys/:id', (req, res) => {
         db.query('SELECT * FROM kysymys WHERE id = $1', [req.params.id], (err, result) => {
 
@@ -333,6 +333,7 @@ wss.on('connection', function connection(ws) {
         })
     })
 
+    //Hae kaikki kysymykset
     app.get('/kysymys/', (req, res) => {
         db.query('SELECT * FROM kysymys', (err, result) => {
 
@@ -346,7 +347,7 @@ wss.on('connection', function connection(ws) {
    
 }
 
-
+//Uploadaa file
 app.post('/upload', upload.single("Test"), function (req, res, next) {
 
     const file = req.file

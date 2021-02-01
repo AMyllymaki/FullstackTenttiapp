@@ -14,6 +14,14 @@ const CheckIfAdmin = (req, res, next) => {
     res.status(401).send("Unauthorized")
 }
 
+//Tarkistetaan onko käyttäjällä oikeutta muuttaa tai lukea dataa (yrittääkö muuttaa oman tilinsä objekteja)
+const CheckIfUsersIsAuthorized = (req, res, next) =>
+{
+       //Haetaan req.userista käyttäjä ID
+       //Haetaan kannasta käyttäjän 
+       //Tarkastellaan onko käyttäjällä tällä ID:llä vastausta/kysymystä/tenttiä, riippuen mitä haetaan.
+}
+
 router.post('/loginToken', function (req, res) {
 
     let User

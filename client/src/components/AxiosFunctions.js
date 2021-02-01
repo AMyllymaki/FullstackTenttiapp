@@ -11,7 +11,6 @@ export const createData = async (data) => {
     }
 }
 
-
 export const fetchData = async () => {
     try {
         let result = await axios.get("http://localhost:4000/1")
@@ -42,7 +41,6 @@ export const createVastaukset = async (data) => {
      
     }
 }
-
 
 export const fetchVastaukset = async () => {
     try {
@@ -78,7 +76,6 @@ export const patchVastaukset = async (id, data) => {
    
     }
 }
-
 
 export const patchData = async (id, data) => {
 

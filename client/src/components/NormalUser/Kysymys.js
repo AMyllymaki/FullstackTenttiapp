@@ -26,7 +26,6 @@ function arrayEquals(a, b) {
 }
 
 
-
 function Kysymys(props) {
 
 

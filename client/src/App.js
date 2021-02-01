@@ -161,7 +161,7 @@ function App(props) {
       return
     }
 
-    luoTentit(localStorage.getItem('jwtToken')).then((response) => {
+    luoTentit().then((response) => {
       if (response !== undefined) {
 
         //luoVastaukset(response)
@@ -219,11 +219,7 @@ function App(props) {
 
   }
 
-  const luoTentit = async (LoggedToken) => {
-
-
-    console.log("LoggedToken")
-    console.log(LoggedToken)
+  const luoTentit = async () => {
 
     let luodutTentit = await haeTentit().then((response) => {
 

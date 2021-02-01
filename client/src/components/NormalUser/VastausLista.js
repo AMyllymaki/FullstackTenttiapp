@@ -22,7 +22,6 @@ function VastausLista() {
     const { state, dispatch } = useContext(UserContext)
     const [graafi, setGraafi] = useState(0)
 
-
     let lataus = undefined
 
     const valitseTentti = (tentti) => {
@@ -97,11 +96,8 @@ function VastausLista() {
             }).catch((error) => {
                 console.log(error)
             })
-
-
         }
     }
-
 
     const checkValittuTentti = (valittuTentti) => {
 
@@ -311,8 +307,6 @@ function VastausLista() {
                 return <Radar data={data} options={options} />
         }
 
-
-
         return data
     }
 
@@ -369,8 +363,6 @@ function VastausLista() {
                                 kysymys={kysymys} />
                         )}
 
-
-
                         <Button color="primary" variant="contained" onClick={muutaNäytävastaukset}>
                             {state.näytäVastaukset ?
                               <FormattedMessage {...messages.btnPiilotaVastaukset} />
@@ -382,7 +374,6 @@ function VastausLista() {
                         {state.näytäVastaukset &&
                             <Button color="primary" variant="contained" onClick={muutaNäytäGraafi}>   <FormattedMessage {...messages.btnNäytäGraafi} /></Button>
                         }
-
                     </div>
         }
     </div>

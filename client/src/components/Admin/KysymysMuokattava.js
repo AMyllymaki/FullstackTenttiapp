@@ -19,7 +19,6 @@ function KysymysMuokattava(props) {
 
     const { kysymys, vastausVaihtoehdot, oikeatVastaukset } = props.kysymys
 
-
     const checkboxClicked = (e, i) => {
         props.handleInputChange(e.target.checked, props.tenttiID, props.kysymysID, i, true)
     }

@@ -214,7 +214,6 @@ function VastausListaAdmin() {
             PoistettavaVastausvaihtoehto = haeIDllä(vastausVaihtoehtoID, PoistettavanKysymys.vastausVaihtoehdot)
         }
 
-
         if (kysymysID !== undefined && vastausVaihtoehtoID !== undefined) {
 
             poistaVastausVaihtoehto(vastausVaihtoehtoID).then((response) => {
@@ -309,10 +308,6 @@ function VastausListaAdmin() {
         return paluuarvo
     }
 
-    
-
-  
-
     let valittuTentti = haeIDllä(state.valittuTenttiIndex, state.tentit)
 
     return (<div style={{ width: '100%' }}>
@@ -333,7 +328,6 @@ function VastausListaAdmin() {
                         <DeleteIcon />
                     </IconButton>
 
-                    
                 </div>
             )}
 
