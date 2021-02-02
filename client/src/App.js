@@ -120,7 +120,19 @@ const reducer = (state = initialState, action) => {
 
   }
 }
-const URL = 'ws://localhost:2356'
+
+let URL = ''
+
+switch (process.env.NODE_ENV) {
+  case 'production':
+    URL = 'ws://tentti-app.herokuapp.com'
+  case 'development':
+    URL = 'ws://localhost:4000'
+  case 'test':
+    URL = 'ws://localhost:4000'
+  default:
+    URL = 'ws://localhost:4000'
+}
 
 function App(props) {
 

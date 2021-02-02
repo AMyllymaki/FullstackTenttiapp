@@ -11,15 +11,21 @@ const secureRoutes = require('./routes/secureRoutes.js')
 const passport = require('passport');
 
 
-
 //Websocketit
 const WebSocket = require('ws');
-const wss = new WebSocket.Server({ port: 2356 });
-
 
 const app = express()
 
+app.use(cors())
+
 const port = process.env.PORT || 4000;
+
+
+const server = require('http').createServer(app)
+
+
+const wss = new WebSocket.Server({ server });
+
 
 const db = require('./db');
 
@@ -29,11 +35,9 @@ app.use(express.static('./admin/build'))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 
-app.use(cors())
 
 app.use('/', routes);
 app.use('/authenticated', passport.authenticate('loginToken', { session: false }), secureRoutes);
-
 
 
 //Tämä osio ei toimi herokussa tällä hetkellä (Websocketit)
@@ -352,6 +356,6 @@ app.get('*', (req, res) => {
 })
 
 
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
-})
+server.listen(port, () => {
+    console.log(`App listening at http://localhost:${port}`)
+  })
