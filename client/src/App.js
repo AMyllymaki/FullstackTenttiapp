@@ -126,12 +126,16 @@ let URL = ''
 switch (process.env.NODE_ENV) {
   case 'production':
     URL = 'wss://tentti-app.herokuapp.com'
+    break
   case 'development':
     URL = 'ws://localhost:4000'
+    break
   case 'test':
     URL = 'ws://localhost:4000'
+    break
   default:
     URL = 'ws://localhost:4000'
+    break
 }
 
 function App(props) {
