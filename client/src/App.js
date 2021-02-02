@@ -125,7 +125,7 @@ let URL = ''
 
 switch (process.env.NODE_ENV) {
   case 'production':
-    URL = 'ws://tentti-app.herokuapp.com'
+    URL = 'wss://tentti-app.herokuapp.com'
   case 'development':
     URL = 'ws://localhost:4000'
   case 'test':
