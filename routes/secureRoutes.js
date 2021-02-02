@@ -289,6 +289,34 @@ router.post('/loginToken', function (req, res) {
 
 }
 
+//Tiedostojen siirto serverille
+const multer = require('multer');
+
+//Tämä ei toimi herokussa tällä hetkellä ((kuva)Tiedoston tallennus serverille)
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './upload');
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    }
+});
+
+const upload = multer({ storage: storage });
+
+//Uploadaa file
+router.post('/upload', upload.single("Test"), function (req, res, next) {
+
+    const file = req.file
+
+    if (!file) {
+        const error = new Error('Please upload a file')
+        error.httpStatusCode = 400
+        return next(error)
+    }
+    res.send(file)
+
+})
 
 
 module.exports = router;

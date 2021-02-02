@@ -10,8 +10,7 @@ const secureRoutes = require('./routes/secureRoutes.js')
 
 const passport = require('passport');
 
-//Tiedostojen siirto serverille
-const multer = require('multer');
+
 
 //Websocketit
 const WebSocket = require('ws');
@@ -36,21 +35,12 @@ app.use('/', routes);
 app.use('/authenticated', passport.authenticate('loginToken', { session: false }), secureRoutes);
 
 
-//Tämä ei toimi herokussa tällä hetkellä ((kuva)Tiedoston tallennus serverille)
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './upload');
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname);
-    }
-});
-
-const upload = multer({ storage: storage });
 
 //Tämä osio ei toimi herokussa tällä hetkellä (Websocketit)
 var pg = require('pg');
-var con_string = 'tcp://postgres:admin@localhost/Tenttikanta';
+
+let con_string = process.env.DATABASE_URL || 'tcp://postgres:admin@localhost/Tenttikanta'
+
 
 let pg_client = new pg.Client(con_string)
 pg_client.connect()
@@ -202,7 +192,7 @@ wss.on('connection', function connection(ws) {
 }
 
 {//Vastausvaihtoehto queryt
-  
+
     //Hae vastausvaihtoehto ID:llä
     app.get('/vastausvaihtoehto/:id', (req, res) => {
         db.query('SELECT * FROM vastausvaihtoehto WHERE id = $1', [req.params.id], (err, result) => {
@@ -238,11 +228,11 @@ wss.on('connection', function connection(ws) {
         })
     })
 
- 
+
 }
 
 {//Vastaus queryt
-  
+
     //Hae vastaus ID:llä
     app.get('/vastaus/:id', (req, res) => {
         db.query('SELECT * FROM vastaus WHERE id = $1', [req.params.id], (err, result) => {
@@ -321,7 +311,7 @@ wss.on('connection', function connection(ws) {
 }
 
 {//Kysymys queryt
- 
+
     //Hae kysymys ID:llä
     app.get('/kysymys/:id', (req, res) => {
         db.query('SELECT * FROM kysymys WHERE id = $1', [req.params.id], (err, result) => {
@@ -344,22 +334,10 @@ wss.on('connection', function connection(ws) {
         })
     })
 
-   
+
 }
 
-//Uploadaa file
-app.post('/upload', upload.single("Test"), function (req, res, next) {
 
-    const file = req.file
-
-    if (!file) {
-        const error = new Error('Please upload a file')
-        error.httpStatusCode = 400
-        return next(error)
-    }
-    res.send(file)
-
-})
 
 
 app.get('/admin', (req, res) => {

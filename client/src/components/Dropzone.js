@@ -1,18 +1,24 @@
 import React, { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import axios from 'axios';
+import ServerSettings from '../ServerSettings.js'
 
 function Dropzone(props) {
 
     const onDrop = useCallback(acceptedFiles => {
 
 
-        let file  = acceptedFiles[0]
+        let file = acceptedFiles[0]
         let url = file && URL.createObjectURL(file)
 
         props.getPictureFromDropzone(url)
-    
-        const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+   
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: `Bearer ${localStorage.getItem('jwtToken')}`
+            }
+        };
 
         let fd = new FormData();
 
@@ -22,7 +28,7 @@ function Dropzone(props) {
 
         fd.append("customName", "böö" + file.name)
 
-        const req = axios.post('http://localhost:4000/upload', fd, config)
+        axios.post(ServerSettings.baseURL + "/authenticated" + "/upload", fd, config)
 
     }, [])
 
@@ -30,7 +36,7 @@ function Dropzone(props) {
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
     return (
-        <div style={{ border: '2px solid black', width: 500, paddingLeft: 5, paddingRight: 5}} {...getRootProps()}>
+        <div style={{ border: '2px solid black', width: 500, paddingLeft: 5, paddingRight: 5 }} {...getRootProps()}>
             <input {...getInputProps()} />
             {
                 isDragActive ?
