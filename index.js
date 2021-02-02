@@ -45,9 +45,12 @@ var pg = require('pg');
 
 let con_string = process.env.DATABASE_URL || 'tcp://postgres:admin@localhost/Tenttikanta'
 
+console.log(con_string)
 
 let pg_client = new pg.Client(con_string)
+
 pg_client.connect()
+
 pg_client.query('LISTEN inserttentti')
 pg_client.query('LISTEN insertkysymys')
 pg_client.query('LISTEN insertvastausvaihtoehto')
