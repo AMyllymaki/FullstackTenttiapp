@@ -42,7 +42,7 @@ const CheckIfSuperAdmin = (req, res, next) => {
         })
     })
 
-    /*
+    
     router.get('/kayttaja/:id', CheckIfSuperAdmin, (req, res) => {
         db.query('SELECT * FROM käyttäjä WHERE id = $1', [req.params.id], (err, result) => {
 
@@ -52,12 +52,10 @@ const CheckIfSuperAdmin = (req, res, next) => {
             res.send(result.rows[0])
         })
     })
-    */
+    
 
     router.get('/kayttaja/', CheckIfSuperAdmin, (req, res) => {
         db.query('SELECT id, etunimi, sukunimi, rooli, käyttäjätunnus FROM käyttäjä', (err, result) => {
-
-
 
             if (err) {
                 console.log(err)

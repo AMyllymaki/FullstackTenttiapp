@@ -3,7 +3,7 @@ const router = express.Router();
 const db = require('../db');
 
 const CheckIfAdmin = (req, res, next) => {
-  
+
     if (req.user) {
         if (req.user.rooli === "admin") {
             next()
@@ -11,15 +11,8 @@ const CheckIfAdmin = (req, res, next) => {
         }
     }
 
+    console.log("Unauthorized")
     res.status(401).send("Unauthorized")
-}
-
-//Tarkistetaan onko käyttäjällä oikeutta muuttaa tai lukea dataa (yrittääkö muuttaa oman tilinsä objekteja)
-const CheckIfUsersIsAuthorized = (req, res, next) =>
-{
-       //Haetaan req.userista käyttäjä ID
-       //Haetaan kannasta käyttäjän 
-       //Tarkastellaan onko käyttäjällä tällä ID:llä vastausta/kysymystä/tenttiä, riippuen mitä haetaan.
 }
 
 router.post('/loginToken', function (req, res) {
@@ -35,13 +28,10 @@ router.post('/loginToken', function (req, res) {
     res.json({ User });
 })
 
-
-
-
 {//Tentti queryt
 
     //Hae tentti ID:llä
-    router.get('/tentti/:id', (req, res) => {
+    router.get('/tentti/:id',  (req, res) => {
         db.query('SELECT * FROM tentti WHERE id = $1', [req.params.id], (err, result) => {
 
 
@@ -109,7 +99,7 @@ router.post('/loginToken', function (req, res) {
         })
     })
 
-    //Lue tentti
+    //Luo tentti
     router.post('/tentti/', CheckIfAdmin, (req, res) => {
 
         let nimi = req.body.nimi
@@ -191,7 +181,31 @@ router.post('/loginToken', function (req, res) {
 
 {//Vastausvaihtoehdot
 
-    router.delete('/vastausvaihtoehto/:id', (req, res) => {
+
+    //Hae vastausvaihtoehto ID:llä
+    router.get('/vastausvaihtoehto/:id', CheckIfAdmin, (req, res) => {
+        db.query('SELECT * FROM vastausvaihtoehto WHERE id = $1', [req.params.id], (err, result) => {
+
+            if (err) {
+                console.log(err)
+            }
+            res.send(result.rows[0])
+        })
+    })
+
+    //Hae kaikki vastausvaihtoehdot
+    router.get('/vastausvaihtoehto/', CheckIfAdmin, (req, res) => {
+        db.query('SELECT * FROM vastausvaihtoehto ORDER BY id', (err, result) => {
+
+
+            if (err) {
+                console.log(err)
+            }
+            res.send(result.rows)
+        })
+    })
+
+    router.delete('/vastausvaihtoehto/:id', CheckIfAdmin, (req, res) => {
         db.query('DELETE FROM vastausvaihtoehto WHERE id = $1', [req.params.id], (err, result) => {
 
             if (err) {
@@ -201,7 +215,7 @@ router.post('/loginToken', function (req, res) {
         })
     })
 
-    router.post('/vastausvaihtoehto/', (req, res) => {
+    router.post('/vastausvaihtoehto/', CheckIfAdmin, (req, res) => {
 
         let vaihtoehto = req.body.vaihtoehto
         let oikea_vastaus = req.body.oikea_vastaus
@@ -220,7 +234,7 @@ router.post('/loginToken', function (req, res) {
         })
     })
 
-    router.put('/vastausvaihtoehto/:id', (req, res) => {
+    router.put('/vastausvaihtoehto/:id', CheckIfAdmin, (req, res) => {
 
         let vaihtoehto = req.body.vaihtoehto
         let oikea_vastaus = req.body.oikea_vastaus
@@ -242,7 +256,29 @@ router.post('/loginToken', function (req, res) {
 
 {//Kysymykset
 
-    router.delete('/kysymys/:id', (req, res) => {
+    //Hae kysymys ID:llä
+    router.get('/kysymys/:id', CheckIfAdmin, (req, res) => {
+        db.query('SELECT * FROM kysymys WHERE id = $1', [req.params.id], (err, result) => {
+
+            if (err) {
+                console.log(err)
+            }
+            res.send(result.rows[0])
+        })
+    })
+
+    //Hae kaikki kysymykset
+    router.get('/kysymys/', CheckIfAdmin, (req, res) => {
+        db.query('SELECT * FROM kysymys', (err, result) => {
+
+            if (err) {
+                console.log(err)
+            }
+            res.send(result.rows)
+        })
+    })
+
+    router.delete('/kysymys/:id', CheckIfAdmin, (req, res) => {
         db.query('DELETE FROM kysymys WHERE id = $1', [req.params.id], (err, result) => {
 
 
@@ -253,7 +289,7 @@ router.post('/loginToken', function (req, res) {
         })
     })
 
-    router.post('/kysymys/', (req, res) => {
+    router.post('/kysymys/', CheckIfAdmin, (req, res) => {
 
         let kysymys = req.body.kysymys
         let aihe_id = req.body.aihe_id
@@ -270,7 +306,7 @@ router.post('/loginToken', function (req, res) {
         })
     })
 
-    router.put('/kysymys/:id', (req, res) => {
+    router.put('/kysymys/:id', CheckIfAdmin, (req, res) => {
 
         let kysymys = req.body.kysymys
         let aihe_id = req.body.aihe_id
@@ -287,6 +323,33 @@ router.post('/loginToken', function (req, res) {
         })
     })
 
+
+}
+
+{//Vastaus queryt
+
+    //Hae vastaus ID:llä
+    router.get('/vastaus/:id', CheckIfAdmin, (req, res) => {
+        db.query('SELECT * FROM vastaus WHERE id = $1', [req.params.id], (err, result) => {
+
+            if (err) {
+                console.log(err)
+            }
+            res.send(result.rows[0])
+        })
+    })
+
+    //Hae kaikki vastaukset
+    router.get('/vastaus/', CheckIfAdmin, (req, res) => {
+        db.query('SELECT * FROM vastaus', (err, result) => {
+
+
+            if (err) {
+                console.log(err)
+            }
+            res.send(result.rows)
+        })
+    })
 }
 
 //Tiedostojen siirto serverille

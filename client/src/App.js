@@ -150,19 +150,17 @@ function App(props) {
 
     ws.current.onopen = () => {
       // on connecting, do nothing but log it to the console
-      console.log("connected")
+      console.log("websocket connected")
     }
 
     ws.current.onmessage = evt => {
       // on receiving a message, add it to the list of messages
-      console.log("Got Message")
-      console.log(evt.data)
       TriggerToast(evt.data)
 
     }
 
     ws.current.onclose = () => {
-      console.log('disconnected')
+      console.log('websocket disconnected')
       // automatically try to reconnect on connection loss
       ws.current = new WebSocket(URL)
     }

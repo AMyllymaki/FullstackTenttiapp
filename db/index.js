@@ -17,10 +17,6 @@ else {
   })
 }
 
-
-
-
-
 module.exports = {
   query: (text, params, callback) => {
 

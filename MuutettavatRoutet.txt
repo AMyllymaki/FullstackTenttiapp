@@ -1,8 +1,13 @@
+
+Aiheen voi varmaan poistaa
+Kurssin voi varmaan myös poistaa
+ 
+
 Siirrettäviä routeja
 
 Admin Secure: (pitää varmistaa että käyttäjä on admin)
 
-//Uploadaa file
+//Uploadaa file +
 //Hae kaikki kysymykset
 //Hae kysymys ID:llä
 //Hae kaikki vastaukset
@@ -13,14 +18,11 @@ Admin Secure: (pitää varmistaa että käyttäjä on admin)
 
 User Secure (Pitää tarkistaa että käyttäjä koittaa muuttaa tai lukea omaa dataansa)
 
-//Muuta vastausta
-//Lisää vastaus
-//Hae yhden käyttäjän kaikki vastaukset yhteen tenttiin
-//Hae kysymyksen vastausvaihtoehdot
+//Muuta vastausta +
+//Lisää vastaus +
+//Hae yhden käyttäjän kaikki vastaukset yhteen tenttiin +
+//Hae kysymyksen vastausvaihtoehdot (tämä ei ole kovin relevanttia muuttaa nyt koska kaikki käyttäjät näkevät kaikki tentit)
 
 Non Secure:
+Tehty jo kaikki nämä
 
-
-Aiheen voi varmaan poistaa
-Kurssin voi varmaan myös poistaa
- 

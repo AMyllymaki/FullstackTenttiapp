@@ -6,7 +6,11 @@ export const lisääVastaus = async (vastaus) => {
 
     try {
 
-        const result = await axios.post(ServerSettings.baseURL + "/vastaus/", vastaus)
+        const config = {
+            headers: { Authorization: `Bearer ${localStorage.getItem('jwtToken')}` }
+        };
+
+        const result = await axios.post(ServerSettings.baseURL + "/user" + "/vastaus/", vastaus, config)
 
         if (result.statusText === "OK") {
 
@@ -25,9 +29,13 @@ export const lisääVastaus = async (vastaus) => {
 export const haeKäyttäjänVastauksetTenttiin = async (käyttäjäID, tenttiID) => {
     try {
 
+        const config = {
+            headers: { Authorization: `Bearer ${localStorage.getItem('jwtToken')}` }
+        };
+
         console.log("Haetaan käyttäjän vastaukset")
 
-        let result = await axios.get(ServerSettings.baseURL + "/vastaus/kayttaja/" + käyttäjäID + "/tentti/" + tenttiID)
+        let result = await axios.get(ServerSettings.baseURL + "/user/vastaus/kayttaja/" + käyttäjäID + "/tentti/" + tenttiID, config)
 
 
         if (result.statusText === "OK") {
@@ -49,10 +57,13 @@ export const haeKäyttäjänVastauksetTenttiin = async (käyttäjäID, tenttiID)
 
 export const muokkaaVastausta = async (vastaus) => {
 
-    console.log(vastaus)
-
     try {
-        let result = await axios.put(ServerSettings.baseURL + "/vastaus/" + vastaus.id, vastaus)
+
+        const config = {
+            headers: { Authorization: `Bearer ${localStorage.getItem('jwtToken')}` }
+        };
+
+        let result = await axios.put(ServerSettings.baseURL + "/user" + "/vastaus/" + vastaus.id, vastaus, config)
 
         if (result.statusText === "OK") {
 

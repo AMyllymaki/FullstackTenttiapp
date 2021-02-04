@@ -3,7 +3,11 @@ import axios from 'axios';
 
 export const haeVastausVaihtoehdot = async (kysymysID) => {
     try {
-        let result = await axios.get(ServerSettings.baseURL + "/vastausvaihtoehto/kysymys/" + kysymysID)
+        const config = {
+            headers: { Authorization: `Bearer ${localStorage.getItem('jwtToken')}` }
+        };
+
+        let result = await axios.get(ServerSettings.baseURL + "/user" + "/vastausvaihtoehto/kysymys/" + kysymysID, config)
 
         if (result.statusText === "OK") {
 
@@ -22,7 +26,12 @@ export const haeVastausVaihtoehdot = async (kysymysID) => {
 
 export const haeVastausVaihtoehdotJaLiitäKysymykseen = async (kysymys) => {
     try {
-        let result = await axios.get(ServerSettings.baseURL + "/vastausvaihtoehto/kysymys/" + kysymys.id)
+
+        const config = {
+            headers: { Authorization: `Bearer ${localStorage.getItem('jwtToken')}` }
+        };
+
+        let result = await axios.get(ServerSettings.baseURL + "/user" + "/vastausvaihtoehto/kysymys/" + kysymys.id, config)
 
         if (result.statusText === "OK") {
 
