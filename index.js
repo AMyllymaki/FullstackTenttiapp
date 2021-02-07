@@ -12,7 +12,6 @@ const normalUserRoutes = require('./routes/normalUserRoutes.js')
 
 const passport = require('passport');
 
-
 //Websocketit
 const WebSocket = require('ws');
 
@@ -21,14 +20,8 @@ const app = express()
 app.use(cors())
 
 const port = process.env.PORT || 4000;
-
-
 const server = require('http').createServer(app)
-
-
 const wss = new WebSocket.Server({ server });
-
-
 const db = require('./db');
 
 app.use(express.static('./client/build'))

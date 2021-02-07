@@ -15,7 +15,7 @@ import StoryButton from '../StorybookComponents'
 
 function Login() {
 
-  
+
     const LoginWithUsername = async () => {
 
         let credentials =
@@ -133,11 +133,18 @@ function Login() {
 
     const { state, dispatch } = useContext(UserContext)
 
+    const uusiStyle =
+    {
+        display: "flex",
+        flexDirection: 'column',
+        width: '50%',
+        justifyContent: 'space-between'
+    }
 
     return (<div style={{ width: '100%', display: "flex", flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: 100 }}>
 
         {isLogin ?
-            <div style={{ display: "flex", flexDirection: 'column', width: '50%', justifyContent: 'space-between' }}>
+            <div style={uusiStyle}>
                 <h1>  <FormattedMessage {...messages.titleKirjautuminen} /></h1>
 
                 <TextField

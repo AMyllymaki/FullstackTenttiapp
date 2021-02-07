@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/8e5c0fe9-fc73-4b5a-bfb0-fcbc0974572d/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/FullstackTenttiapp",
+    "appService.deploySubpath": "."
+}

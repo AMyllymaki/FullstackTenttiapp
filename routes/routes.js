@@ -145,16 +145,6 @@ router.post('/login',
                     const token = jwt.sign({ user: user }, 'secrets');
                     return res.json({ user, token });
 
-                    /*
-                    req.login(
-                        user,
-                        { session: false },
-                        async (error) => {
-                            if (error) return next(error);
-                        }
-                    );
-                    */
-
                 } catch (error) {
 
                     return next(error);
