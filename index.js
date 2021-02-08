@@ -190,6 +190,8 @@ wss.on('connection', function connection(ws) {
     })
 }
 
+//remove this
+
 app.get('/admin', (req, res) => {
 
     console.log("Loading From: " + __dirname + '/admin/build/index.html')
