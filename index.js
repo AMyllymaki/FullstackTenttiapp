@@ -190,7 +190,6 @@ wss.on('connection', function connection(ws) {
     })
 }
 
-//remove this
 
 app.get('/admin', (req, res) => {
 
