@@ -134,7 +134,7 @@ router.post('/login',
                     }
                     
                     const user = { id: userFromDB.id, rooli: userFromDB.rooli, käyttäjätunnus: userFromDB.käyttäjätunnus };
-                    const token = jwt.sign({ user: user }, 'secrets');
+                    const token = jwt.sign({ user: user }, process.env.SECRET);
                     return res.json({ user, token });
 
                 } catch (error) {

@@ -31,7 +31,7 @@ else {
    user: 'postgres',
    host: 'localhost',
    database: 'Tenttikanta',
-   password: 'admin',
+   password: process.env.LOCAL_DB_PASSWORD,
    port: 5432,
   })
  
