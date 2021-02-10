@@ -5,6 +5,10 @@ let pool
 if (process.env.HEROKU) {
   pool = new Pool({ connectionString: process.env.DATABASE_URL })
 }
+else if(process.env.AZURE)
+{
+  pool = new Pool({ connectionString: process.env.CONNECTION_STRING })
+}
 else {
 
   pool = new Pool({
