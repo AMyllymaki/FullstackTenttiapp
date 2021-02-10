@@ -8,20 +8,7 @@ if (process.env.HEROKU) {
 }
 else if (process.env.AZURE) {
   console.log("Process is AZURE")
-  pool = new Pool({
-
-    host: "tenttipostgres.postgres.database.azure.com",
-    user: "TenttiAdmin@tenttipostgres",
-    password: process.env.AZURE_DB_PASSWORD,
-    database: 'Tenttikanta',
-    port: 5432,
-    ssl: true,
-    dialect: 'postgres',
-    dialectOptions: {
-      "ssl": {"require":true }
-    }
-
-  })
+  pool = new Pool({ connectionString: process.env.DATABASE_URL })
 }
 else {
   console.log("Process is LOCAL")
