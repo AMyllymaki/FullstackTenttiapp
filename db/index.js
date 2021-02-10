@@ -15,7 +15,11 @@ else if (process.env.AZURE) {
     password: process.env.AZURE_DB_PASSWORD,
     database: 'Tenttikanta',
     port: 5432,
-    ssl: true
+    ssl: true,
+    dialect: 'postgres',
+    dialectOptions: {
+      "ssl": {"require":true }
+    }
 
   })
 }
