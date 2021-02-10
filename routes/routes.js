@@ -7,16 +7,7 @@ const bcrypt = require('bcrypt')
 const router = express.Router();
 const BCRYPT_SALT_ROUNDS = 12;
 
-let herokuSecret
-
-if (process.env.HEROKU)
-{
-    herokuSecret = process.env.SECRET
-}
-else
-{
-    herokuSecret = 'secret'
-}
+let herokuSecret = process.env.SECRET
 
 const CheckIfSuperAdmin = (req, res, next) => {
     

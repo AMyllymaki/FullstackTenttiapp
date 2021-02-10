@@ -23,6 +23,12 @@ passport.use(
                         console.log(err)
                     }
 
+                    if(result === undefined)
+                    {
+                        return done(null, false, { message: 'Error with login' });
+                    }
+                  
+
                     if (result.rows.length === 0) {
                         return done(null, false, { message: 'bad username' });
                     }
