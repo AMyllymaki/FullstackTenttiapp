@@ -168,7 +168,7 @@ router.post('/loginToken', function (req, res) {
 
         //TODO tarkista käyttöoikeus
 
-        db.query('SELECT * FROM kysymys WHERE id IN (SELECT kysymys_id FROM tenttikysymys WHERE tentti_id = $1)', [req.params.idtentti], (err, result) => {
+        db.query('SELECT * FROM kysymys WHERE id IN (SELECT kysymys_id FROM tenttikysymys WHERE tentti_id = $1) ORDER BY id', [req.params.idtentti], (err, result) => {
 
             if (err) {
                 console.log(err)

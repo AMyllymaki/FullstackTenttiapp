@@ -1,6 +1,6 @@
 import { useEffect, useReducer, createContext, useRef } from "react"
 import Button from '@material-ui/core/Button';
-
+import { makeStyles } from '@material-ui/core/styles';
 import VastausLista from './components/NormalUser/VastausLista'
 import VastausListaAdmin from './components/Admin/VastausListaAdmin'
 import { haeTentit } from "./components/HttpRequests/tenttiRequests.js"
@@ -9,16 +9,18 @@ import { loginToken } from "./components/HttpRequests/loginRequests.js"
 import { LoginSuccess, TriggerToast } from './components/SweetAlerts.js'
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 
 const mainContainerStyle =
 {
   display: 'flex',
   flex: 1,
   flexDirection: 'column',
-  alignItems: 'center',
+  alignItems: 'flex-start',
   paddingTop: 20,
   marginBottom: 50,
-
+  marginLeft: '3%'
 }
 
 const tableContainerStyle =
@@ -27,8 +29,19 @@ const tableContainerStyle =
   display: 'flex',
   justifyContent: 'flex-start',
   alignItems: 'flex-start',
-  width: 1184,
 }
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+}));
 
 const UserContext = createContext(null)
 
@@ -235,7 +248,11 @@ function App(props) {
 
   const luoTentit = async () => {
 
+    dispatch({ type: "Lataa"})
+
     let luodutTentit = await haeTentit().then((response) => {
+
+      dispatch({ type: "LopetaLataus" })
 
       if (response.data !== undefined) {
 
@@ -283,31 +300,25 @@ function App(props) {
     return true
   }
 
+
+  const classes = useStyles();
+
   return (
 
     <UserContext.Provider value={{ state, dispatch }}>
       <div>
-        <div style={{ backgroundColor: '#3F51B5' }}>
-          <div style={{ height: 64, width: '100%', display: 'flex', alignItems: 'center', paddingLeft: 24 }}>
-            <div style={{ height: '100%', width: 200, display: 'flex' }}>
 
-              <Button onClick={vaihdaKieli} style={{ color: 'white' }}>
-                <FormattedMessage {...messages.btnVaihdaKieli} />
-              </Button>
-            </div>
-            {isLoggedIn() ?
-              <div style={{ height: '100%', width: '100%', display: 'flex' }}>
-                {
-                  // <Button onClick={tentit} style={{ color: 'white' }}>
-                  //   <FormattedMessage {...messages.btnTentti} /> 
-                  // </Button>
+        <AppBar position="static">
+          <Toolbar>
+            <Button color="inherit" onClick={vaihdaKieli} >
+              <FormattedMessage {...messages.btnVaihdaKieli} />
+            </Button>
 
-                  //   <Button onClick={TarkistaState} style={{ color: 'white' }}>
-                  //   <FormattedMessage {...messages.btnTarkistaState} />
-                  // </Button>
-                }
+            {isLoggedIn() &&
+              <div>
 
                 {state.käyttäjäRooli === "admin" &&
+
                   <Button name={"VaihdaKäyttäjääButton"} onClick={vaihdaKäyttäjää} style={{ color: 'white' }}>
 
                     {state.admin ?
@@ -317,27 +328,25 @@ function App(props) {
                     }
                   </Button>
                 }
+
+
                 <Button name={"LogoutButton"} onClick={Logout} style={{ color: 'white' }}>
                   <FormattedMessage {...messages.btnKirjauduUlos} />
                 </Button>
               </div>
-              :
-
-              []
             }
+          </Toolbar>
+        </AppBar>
 
-
-          </div>
-        </div>
 
         <div style={mainContainerStyle}>
           {isLoggedIn() ?
 
             <div style={tableContainerStyle}>
               {state.admin ?
-                <VastausListaAdmin />
+                <VastausListaAdmin/>
                 :
-                <VastausLista />
+                <VastausLista/>
               }
 
             </div>

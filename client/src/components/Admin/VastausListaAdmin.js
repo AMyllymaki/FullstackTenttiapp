@@ -59,15 +59,15 @@ function VastausListaAdmin() {
             let tentti = uusiTentti()
             lisääTentti(tentti).then((response) => {
 
-
                 tentti.id = response
                 tmpTentit.push(tentti)
                 lisääTenttiTestaustaVarten(tentti.id)
+      
                 dispatch({ type: "MuutaTenttejä", payload: tmpTentit })
 
 
 
-            }).catch((error) => {
+            }).catch((error) => {     
                 console.log(error)
             })
 

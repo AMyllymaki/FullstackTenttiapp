@@ -26,6 +26,8 @@ function VastausLista() {
 
     const valitseTentti = (tentti) => {
 
+        dispatch({ type: "Lataa"})
+
         haeTentinKysymykset(tentti.id).then((kysymykset) => {
 
             let tmpKysymykset = []
@@ -39,9 +41,11 @@ function VastausLista() {
 
             muutettuTentti.kysymykset = tmpKysymykset
             dispatch({ type: "MuutaTenttejä", payload: tmpTentit })
+            dispatch({ type: "LopetaLataus" })
 
 
         }).catch((error) => {
+            dispatch({ type: "LopetaLataus" })
             console.log(error)
         })
 
@@ -327,7 +331,7 @@ function VastausLista() {
 
 
     return (<div style={{ width: '100%' }}>
-        <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'wrap', marginBottom: 10 }}>
             {state.tentit.map((tentti, i) =>
 
                 <Button key={i} color="primary" variant={tentti.id === checkValittuTentti(valittuTentti) ? "outlined" : "text"} onClick={() => valitseTentti(tentti)} >{tentti.nimi}</Button>
