@@ -12,14 +12,15 @@ const routes = require('./routes/routes.js');
 const secureRoutes = require('./routes/secureRoutes.js')
 const normalUserRoutes = require('./routes/normalUserRoutes.js')
 
+
+const app = express()
+app.use(cors())
+
 const passport = require('passport');
 
 //Websocketit
 const WebSocket = require('ws');
 
-const app = express()
-
-app.use(cors())
 
 const port = process.env.PORT || 4000;
 const server = require('http').createServer(app)

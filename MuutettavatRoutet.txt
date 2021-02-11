@@ -8,10 +8,10 @@ Siirrettäviä routeja
 Admin Secure: (pitää varmistaa että käyttäjä on admin)
 
 //Uploadaa file +
-//Hae kaikki kysymykset
-//Hae kysymys ID:llä
-//Hae kaikki vastaukset
-//Hae vastaus ID:llä
+//Hae kaikki kysymykset +
+//Hae kysymys ID:llä +
+//Hae kaikki vastaukset +
+//Hae vastaus ID:llä +
 //Hae kaikki vastausvaihtoehdot
 //Hae vastausvaihtoehto ID:llä
 
