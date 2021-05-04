@@ -3,7 +3,7 @@ const getEnvironment = () => {
     switch (process.env.NODE_ENV) {
         case 'production':
          //   return 'http://localhost:4000'
-         return 'https://fullstacktenttiapp.azurewebsites.net'
+         return 'https://tentti-app.herokuapp.com'
         case 'development':
             return 'http://localhost:4000'
         case 'test':
