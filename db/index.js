@@ -4,7 +4,7 @@ let pool
 
 if (process.env.HEROKU) {
   console.log("Process is HEROKU")
-  pool = new Pool({ connectionString: process.env.DATABASE_URL })
+  pool = new Pool({ connectionString: `${process.env.DATABASE_URL}?sslmode=require` })
 }
 else if (process.env.AZURE) {
   console.log("Process is AZURE")
